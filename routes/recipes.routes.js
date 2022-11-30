@@ -47,4 +47,18 @@ router.put('/edit/:id', async (req, res) => {
     }
 })
 
+router.delete('/delete/:id', async (req, res) => {
+    try {
+        const { id } = req.params
+
+        const deleteRecipe = await Recipe.findByIdAndDelete(id)
+
+        return res.status(200).json(deleteRecipe)
+    } catch (error) {
+        console.log(error)
+
+        return res.status(500).json({ msg: 'Sorry, something is wrong. Try again later!'})
+    }
+})
+
 export default router
