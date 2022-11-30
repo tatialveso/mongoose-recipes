@@ -29,4 +29,22 @@ router.post('/insert', async (req, res) => {
     }
 })
 
+router.put('/edit/:id', async (req, res) => {
+    try {
+        const { id } = req.params
+
+        const update = await Recipe.findByIdAndUpdate(
+            id,
+            { ...req.body},
+            { new: true, runValidators: true }
+        )
+
+        return res.status(200).json(update)
+    } catch (error) {
+        console.log(error)
+
+        return res.status(500).json({ msg: 'Sorry, something is wrong. Try again later!'})
+    }
+})
+
 export default router
